@@ -25,7 +25,8 @@ public LinearEquation(int x1, int y1, int x2, int y2){
     public double distance(){
     double add = Math.pow(x2-x2,2) + Math.pow(y2-y1, 2);
     double dist = Math.sqrt(add);
-    double roundDist = Math.round(dist * 100) / 100;
+    double roundDist = roundedToHundredth(dist) ;
+    return roundDist;
 
     }
 
@@ -34,7 +35,9 @@ public LinearEquation(int x1, int y1, int x2, int y2){
     /* Calculates and returns the y-intercept of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double yIntercept(){
-
+        double b = y1 - slope() * x1;
+        double roundB = roundedToHundredth(b);
+        return roundB;
     }
 
 
@@ -43,7 +46,7 @@ public LinearEquation(int x1, int y1, int x2, int y2){
        (x2, y2), rounded to the nearest hundredth */
     public double slope(){
         double div = (y2 - y1) / (x2 - x1);
-       double slope = Math.round(div);
+       double slope = roundedToHundredth(div);
         return slope;
     }
 
@@ -75,6 +78,9 @@ public LinearEquation(int x1, int y1, int x2, int y2){
      */
     public String equation(){
 
+
+        }
+
     }
 
 
@@ -84,7 +90,9 @@ public LinearEquation(int x1, int y1, int x2, int y2){
     /* Returns a String of the coordinate point on the line that has the given x value, with
        both x and y coordinates as decimals to the nearest hundredth, e.g (-5.0, 6.75) */
     public String coordinateForX(double xValue){
-
+        double y = xValue * slope() + yIntercept();
+        double yRound = roundedToHundredth(y);
+        return "(" + xValue + "," + yRound + ")";
     }
 
 
@@ -97,7 +105,8 @@ public LinearEquation(int x1, int y1, int x2, int y2){
         HINT:  the Math.round method can help with this!
      */
     public double roundedToHundredth(double toRound){
-
+        double roundNum = Math.round(toRound * 100) / 100;
+        return roundNum;
     }
 
 
@@ -114,7 +123,13 @@ public LinearEquation(int x1, int y1, int x2, int y2){
       equation(), slope(), yIntercept(), distance().
 
       */
-    public String lineInfo()
+    public String lineInfo(){
+        System.out.println("The original points: " + "(" + x1 + "," + y1 + ")" + " and " + "(" + x2 + "," + y2 + ")";
+        System.out.println("The equation of the line: " + equation());
+        System.out.println("The slope of the line, as a decimal: " + slope());
+        System.out.println("The y-intercept of the line: " + yIntercept());
+        System.out.println("The distance between the two points: " + distance());
+    }
 
 
 }
