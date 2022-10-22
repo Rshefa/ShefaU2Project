@@ -4,6 +4,7 @@ public class LinearEquation {
     private int y1;
     private int x2;
     private int y2;
+    private boolean horizontal;
 
 
     /* Creates a LinearEquation object */
@@ -19,18 +20,17 @@ public LinearEquation(int x1, int y1, int x2, int y2){
 
 }
 
-
 /* Calculates and returns distance between (x1, y1) and (x2, y2), rounded to
    the nearest hundredth */
     public double distance(){
-    double add = Math.pow(x2-x2,2) + Math.pow(y2-y1, 2);
-    double dist = Math.sqrt(add);
-    double roundDist = roundedToHundredth(dist) ;
-    return roundDist;
+        double add = Math.pow(x2-x1,2) + Math.pow(y2-y1, 2);
+        double dist = Math.sqrt(add);
+        double roundDist = roundedToHundredth(dist) ;
+        return roundDist;
 
     }
 
-
+/* If y-intercept is less than 0, then return " - " + "y-intercept"*/
 
     /* Calculates and returns the y-intercept of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
@@ -40,17 +40,13 @@ public LinearEquation(int x1, int y1, int x2, int y2){
         return roundB;
     }
 
-
-
     /* Calculates and returns the slope of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double slope(){
-        double div = (y2 - y1) / (x2 - x1);
-       double slope = roundedToHundredth(div);
+        double div = (double)(y2 - y1) / (x2 - x1);
+        double slope = roundedToHundredth(div);
         return slope;
     }
-
-
 
     /* Returns a String that represents the linear equation of the line through points
        (x1, y1) and (x2, y2) in slope-intercept (y = mx + b) form, e.g. "y = 3x + 1.5".
@@ -77,15 +73,38 @@ public LinearEquation(int x1, int y1, int x2, int y2){
                subtraction!
      */
     public String equation(){
+        int numerator = y2 - y1;
+        int denominator = x2 - x1;
 
+        if (y1 == y2) {
+            horizontal = true;
+        }else if (numerator < 0 && denominator < 0){ //Checks if both numbers are negative
+            int absNum = Math.abs(numerator); //Turns ints into positive
+            int absDen = Math.abs(denominator);
 
+            if (absNum % absDen == 0 ) { //Checks if slope is an integer
+                if (absNum/absDen == 1) { //Checks if slope = 1
+                    return "x"; //If slope is 1, we want x to be by itself
+                }else {
+                    return Integer.toString(absNum / absDen) + "x"; //If slope isn't 1, we want the slope to be with x
+                }
+            }else{
+                return absNum + "/" + absDen + "x"; //If slope is a fraction or decimal, we want it to return as a fraction.
+            }
+        }else{ //Numbers aren't negative or one is negative
+            if (numerator % denominator == 0){ //Checks for integers
+                if (numerator/denominator == -1) { //Checks if slope = -1
+                    return "-x"; //If slope is -1, we want -x to be by itself
+                }else {
+                    return Integer.toString(numerator / denominator) + "x";
+                }
+            }else{
+                return numerator + "/" + denominator + "x";
+            }
         }
-
+        return null; // y = slope +null
+        //
     }
-
-
-
-
 
     /* Returns a String of the coordinate point on the line that has the given x value, with
        both x and y coordinates as decimals to the nearest hundredth, e.g (-5.0, 6.75) */
@@ -95,21 +114,15 @@ public LinearEquation(int x1, int y1, int x2, int y2){
         return "(" + xValue + "," + yRound + ")";
     }
 
-
-
-
-
     /* "Helper" method for use elsewhere in your methods; returns the value toRound rounded
         to the nearest hundredth
 
         HINT:  the Math.round method can help with this!
      */
     public double roundedToHundredth(double toRound){
-        double roundNum = Math.round(toRound * 100) / 100;
+        double roundNum = Math.round(toRound * 100) / 100.0;
         return roundNum;
     }
-
-
 
     /* Returns a string that includes all information about the linear equation, each on
        separate lines:
@@ -124,12 +137,16 @@ public LinearEquation(int x1, int y1, int x2, int y2){
 
       */
     public String lineInfo(){
-        System.out.println("The original points: " + "(" + x1 + "," + y1 + ")" + " and " + "(" + x2 + "," + y2 + ")";
-        System.out.println("The equation of the line: " + equation());
-        System.out.println("The slope of the line, as a decimal: " + slope());
-        System.out.println("The y-intercept of the line: " + yIntercept());
-        System.out.println("The distance between the two points: " + distance());
+        if (horizontal == true) {
+            return ("These points are on a horizontal line: y = " + y1);
+
+        }else {
+            return ("The original points: " + "(" + x1 + "," + y1 + ")" + " and " + "(" + x2 + "," + y2 + ")");
+            return ("The equation of the line: " + equation());
+            return ("The slope of the line, as a decimal: " + slope());
+            return ("The y-intercept of the line: " + yIntercept());
+            return ("The distance between the two points: " + distance());
+
+        }
     }
-
-
 }

@@ -7,9 +7,8 @@ public class LinearEquationRunner {
          System.out.print("Welcome!");
          System.out.print("Enter coordinate 1: ");
          String c1 = scan.nextLine();
-        System.out.print("Enter coordinate 2: ");
-        String c2 = scan.nextLine();
-
+         System.out.print("Enter coordinate 2: ");
+         String c2 = scan.nextLine();
 
         int x1 = -1;
         int y1 = 5;
