@@ -10,6 +10,9 @@ public class LinearEquationRunner {
          System.out.print("Enter coordinate 2: ");
          String c2 = scan.nextLine();
 
+         int commaIdx1 = c1.indexOf(",");  //(4, -6)  "4" - last parenthesis can be found by length -1
+        String xValue1 = c1.substring(0, commaIdx1);
+        String yValue1 = c1.substring(commaIdx1 + 1, 9 ); //fix
         int x1 = -1;
         int y1 = 5;
         int x2 = 3;
