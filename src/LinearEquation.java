@@ -150,11 +150,11 @@ public LinearEquation(int x1, int y1, int x2, int y2){
             return ("These points are on a horizontal line: y = " + y1);
 
         }else {
-            String str = "The original points: " + "(" + x1 + ", " + y1 + ")" + " and " + "(" + x2 + ", " + y2 + ")" +"\n";
-            str += "The equation of the line: " + equation() + "\n";
-            str += "The slope of the line, as a decimal: " + slope() + "\n";
-            str += "The y-intercept of the line: " + yIntercept() + "\n";
-            str += "The distance between the two points: " + distance();
+            String str = "The original points are: " + "(" + x1 + ", " + y1 + ")" + " and " + "(" + x2 + ", " + y2 + ")" +"\n";
+            str += "The equation of the line between these two points is: " + equation() + "\n";
+            str += "The slope of this line is: " + slope() + "\n";
+            str += "The y-intercept of the line is: " + yIntercept() + "\n";
+            str += "The distance between the two points is: " + distance();
             return str;
         }
     }
