@@ -30,22 +30,21 @@ public LinearEquation(int x1, int y1, int x2, int y2){
 
     }
 
-/* If y-intercept is less than 0, then return " - " + "y-intercept"*/
 
     /* Calculates and returns the y-intercept of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double yIntercept(){
         double b = y1 - slope() * x1;
-        double roundB = roundedToHundredth(b);
-        return roundB;
+        return roundedToHundredth(b);
+
     }
 
     /* Calculates and returns the slope of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double slope(){
         double div = (double)(y2 - y1) / (x2 - x1);
-        double slope = roundedToHundredth(div);
-        return slope;
+        return roundedToHundredth(div);
+
     }
 
     /* Returns a String that represents the linear equation of the line through points
@@ -75,6 +74,8 @@ public LinearEquation(int x1, int y1, int x2, int y2){
     public String equation(){
         int numerator = y2 - y1;
         int denominator = x2 - x1;
+        String slope = "";
+        String yInt;
 
         if (y1 == y2) {
             horizontal = true;
@@ -82,27 +83,35 @@ public LinearEquation(int x1, int y1, int x2, int y2){
             int absNum = Math.abs(numerator); //Turns ints into positive
             int absDen = Math.abs(denominator);
 
-            if (absNum % absDen == 0 ) { //Checks if slope is an integer
+            if (absNum % absDen == 0 && absNum/absDen == 1) { //Checks if slope is an integer
                 if (absNum/absDen == 1) { //Checks if slope = 1
-                    return "x"; //If slope is 1, we want x to be by itself
+                    slope = "x"; //If slope is 1, we want x to be by itself
                 }else {
-                    return Integer.toString(absNum / absDen) + "x"; //If slope isn't 1, we want the slope to be with x
+                    slope = absNum / absDen + "x"; //If slope isn't 1, we want the slope to be with x
                 }
             }else{
-                return absNum + "/" + absDen + "x"; //If slope is a fraction or decimal, we want it to return as a fraction.
+                slope = absNum + "/" + absDen + "x"; //If slope is a fraction or decimal, we want it to return as a fraction.
             }
         }else{ //Numbers aren't negative or one is negative
             if (numerator % denominator == 0){ //Checks for integers
                 if (numerator/denominator == -1) { //Checks if slope = -1
-                    return "-x"; //If slope is -1, we want -x to be by itself
+                    slope = "-x"; //If slope is -1, we want -x to be by itself
                 }else {
-                    return Integer.toString(numerator / denominator) + "x";
+                    slope = numerator / denominator + "x";
                 }
             }else{
-                return numerator + "/" + denominator + "x";
+                slope = numerator + "/" + denominator + "x";
             }
         }
-        return null; // y = slope +null
+            if (y1 - slope() * x1 < 0){
+                yInt = " - " + yIntercept();
+            } else{
+                yInt = " + " + yIntercept();
+            }
+            if (y1 - slope() * x1 == 0){
+                yInt = "";
+            }
+        return "y = " + slope + yInt;
         //
     }
 
@@ -141,12 +150,12 @@ public LinearEquation(int x1, int y1, int x2, int y2){
             return ("These points are on a horizontal line: y = " + y1);
 
         }else {
-            return ("The original points: " + "(" + x1 + "," + y1 + ")" + " and " + "(" + x2 + "," + y2 + ")");
-            return ("The equation of the line: " + equation());
-            return ("The slope of the line, as a decimal: " + slope());
-            return ("The y-intercept of the line: " + yIntercept());
-            return ("The distance between the two points: " + distance());
-
+            String str = "The original points: " + "(" + x1 + ", " + y1 + ")" + " and " + "(" + x2 + ", " + y2 + ")" +"\n";
+            str += "The equation of the line: " + equation() + "\n";
+            str += "The slope of the line, as a decimal: " + slope() + "\n";
+            str += "The y-intercept of the line: " + yIntercept() + "\n";
+            str += "The distance between the two points: " + distance();
+            return str;
         }
     }
 }
