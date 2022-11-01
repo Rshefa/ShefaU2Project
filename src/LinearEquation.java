@@ -75,7 +75,8 @@ public LinearEquation(int x1, int y1, int x2, int y2){
         int numerator = y2 - y1;
         int denominator = x2 - x1;
         String slope = "";
-        String yInt;
+        String yInt = "";
+
 
         if (y1 == y2) {
             horizontal = true;
@@ -83,16 +84,16 @@ public LinearEquation(int x1, int y1, int x2, int y2){
             int absNum = Math.abs(numerator); //Turns ints into positive
             int absDen = Math.abs(denominator);
 
-            if (absNum % absDen == 0 && absNum/absDen == 1) { //Checks if slope is an integer
+            if (absNum % absDen == 0 ) { //Checks if slope is an integer
                 if (absNum/absDen == 1) { //Checks if slope = 1
                     slope = "x"; //If slope is 1, we want x to be by itself
                 }else {
-                    slope = absNum / absDen + "x"; //If slope isn't 1, we want the slope to be with x
+                    slope = absNum / absDen + "x"; //If slope isn't 1, slope = whole #  with x
                 }
             }else{
                 slope = absNum + "/" + absDen + "x"; //If slope is a fraction or decimal, we want it to return as a fraction.
             }
-        }else{ //Numbers aren't negative or one is negative
+        }else{ //Numbers are positive or one is negative
             if (numerator % denominator == 0){ //Checks for integers
                 if (numerator/denominator == -1) { //Checks if slope = -1
                     slope = "-x"; //If slope is -1, we want -x to be by itself
@@ -100,11 +101,14 @@ public LinearEquation(int x1, int y1, int x2, int y2){
                     slope = numerator / denominator + "x";
                 }
             }else{
-                slope = numerator + "/" + denominator + "x";
+                slope = "-" + Math.abs(numerator) + "/" + Math.abs(denominator) + "x";
             }
         }
             if (y1 - slope() * x1 < 0){
-                yInt = " - " + yIntercept();
+                yInt = " -" + (int) (Math.abs(yIntercept()));
+            } else if (horizontal){
+                yInt = String.valueOf((int) yIntercept());
+
             } else{
                 yInt = " + " + yIntercept();
             }
@@ -120,7 +124,7 @@ public LinearEquation(int x1, int y1, int x2, int y2){
     public String coordinateForX(double xValue){
         double y = xValue * slope() + yIntercept();
         double yRound = roundedToHundredth(y);
-        return "(" + xValue + "," + yRound + ")";
+        return "(" + xValue + ", " + yRound + ")";
     }
 
     /* "Helper" method for use elsewhere in your methods; returns the value toRound rounded
@@ -150,11 +154,11 @@ public LinearEquation(int x1, int y1, int x2, int y2){
             return ("These points are on a horizontal line: y = " + y1);
 
         }else {
-            String str = "The original points: " + "(" + x1 + ", " + y1 + ")" + " and " + "(" + x2 + ", " + y2 + ")" +"\n";
-            str += "The equation of the line: " + equation() + "\n";
-            str += "The slope of the line, as a decimal: " + slope() + "\n";
-            str += "The y-intercept of the line: " + yIntercept() + "\n";
-            str += "The distance between the two points: " + distance();
+            String str = "The two points are: " + "(" + x1 + ", " + y1 + ")" + " and " + "(" + x2 + ", " + y2 + ")" +"\n";
+            str += "The equation of the line between these two points is: " + equation() + "\n";
+            str += "The slope of this line is: " + slope() + "\n";
+            str += "The y-intercept of the line is: " + yIntercept() + "\n";
+            str += "The distance between the two points is: " + distance();
             return str;
         }
     }

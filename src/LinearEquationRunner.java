@@ -19,13 +19,13 @@ public class LinearEquationRunner {
         String xValue2 = c2.substring(1, commaIdx2); //x2
         String yValue2 = c2.substring(commaIdx2 + 2, c2len); //y2
         int intX1 = Integer.parseInt(xValue1);
-        System.out.println(intX1);
+
         int intX2 = Integer.parseInt(xValue2); //using integer parsing to get the coordinates values
-        System.out.println(intX2);                      // individually
+                                                 // individually
         int intY1 = Integer.parseInt(yValue1);
-        System.out.println(intY1);
+
         int intY2 = Integer.parseInt(yValue2);
-        System.out.println(intY2);
+
 
 
         int x1 = intX1;
